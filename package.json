@@ -1,0 +1,27 @@
+{
+  "name": "ls-ko-lists",
+  "version": "0.1.0",
+  "description": "Re-usable knockout lists and model",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/longshot-io/ls-ko-lists.git"
+  },
+  "keywords": [
+    "knockout",
+    "reusable",
+    "lists",
+    "viewmodels",
+    "models"
+  ],
+  "author": "Carl Winkler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/longshot-io/ls-ko-lists/issues"
+  },
+  "homepage": "https://github.com/longshot-io/ls-ko-lists#readme"
+}
