@@ -1,7 +1,6 @@
 /// <reference path="../knockout/knockout.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
-
 declare module "ls-ko-lists" {
     class List<T extends ModelViewModel> implements ListViewModel {
         new(options: ListOptions);
@@ -36,12 +35,8 @@ declare module "ls-ko-lists" {
     }
 
     interface ModelViewModel {
-        
-
         loadModel(model: any): void;
         saveToModel(): any;
-
-        
     }
 
     interface ListOptions {

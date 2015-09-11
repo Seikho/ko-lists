@@ -3,7 +3,6 @@ import $ = require("jquery");
 import Types = require("ls-ko-lists");
 import ListOptions = Types.ListOptions;
 
-
 export class List<T extends Types.ModelViewModel> implements Types.ListViewModel {
     constructor(public options: Types.ListOptions) {
         this.options = options;
