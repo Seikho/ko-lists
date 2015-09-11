@@ -13,8 +13,7 @@ var List = (function () {
         this.saveToServer = function () {
         };
         this.loadModels = function (models) {
-            var VM = _this.options.model;
-            var newModels = models.map(function (model) { return new VM(model); });
+            var newModels = models.map(function (model) { return _this.options.createModel(model); });
             _this.models(newModels);
         };
         this.saveToModels = function () {
@@ -24,4 +23,38 @@ var List = (function () {
     }
     return List;
 })();
-exports.leet = function (n) { return n * 1234; };
+exports.List = List;
+var Model = (function () {
+    function Model(model) {
+        var _this = this;
+        /**
+         * Fallback when a custom loadModel function is not provided
+         */
+        this.loadModel = function (model) {
+            Object.keys(model)
+                .forEach(function (key) {
+                _this.modelKeys.push(key);
+                _this[key] = ko.observable(model[key]);
+            });
+        };
+        /**
+         * Fallback when a custom saveToModel function is not provided
+         */
+        this.saveToModel = function () {
+            var model = {};
+            _this.modelKeys.forEach(function (key) {
+                model[key] = _this[key]();
+            });
+            return model;
+        };
+        this.isNew = ko.computed(function () { return false; });
+        this.isDirty = ko.computed(function () { return false; });
+        this.isDeleted = ko.computed(function () { return false; });
+        this.modelKeys = [];
+        this.originalModel = model;
+        if (model)
+            this.loadModel(model);
+    }
+    return Model;
+})();
+exports.Model = Model;

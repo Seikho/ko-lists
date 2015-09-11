@@ -3,7 +3,8 @@ import $ = require("jquery");
 import Types = require("ls-ko-lists");
 import ListOptions = Types.ListOptions;
 
-class List<T extends Types.Model> implements Types.ListViewModel {
+
+export class List<T extends Types.ModelViewModel> implements Types.ListViewModel {
     constructor(public options: Types.ListOptions) {
         this.options = options;
     }
@@ -17,12 +18,11 @@ class List<T extends Types.Model> implements Types.ListViewModel {
     }
 
     saveToServer = () => {
-        
+
     }
 
     loadModels = (models: any[]) => {
-        var VM = <T>this.options.model;
-        var newModels = models.map(model => new VM(model));
+        var newModels = models.map(model => <T>this.options.createModel(model));
         this.models(newModels);
     }
 
@@ -31,4 +31,41 @@ class List<T extends Types.Model> implements Types.ListViewModel {
     }
 }
 
-export var leet = n => n * 1234;
+export class Model implements Types.ModelViewModel {
+    constructor(model?: any) {
+        this.originalModel = model;
+        if (model) this.loadModel(model);
+    }
+
+    originalModel: any;
+    
+    /**
+     * Fallback when a custom loadModel function is not provided
+     */
+    loadModel = (model: any) => {
+        Object.keys(model)
+            .forEach(key => {
+                this.modelKeys.push(key);
+                this[key] = ko.observable(model[key]);
+            });
+    }
+
+    /**
+     * Fallback when a custom saveToModel function is not provided
+     */    
+    saveToModel = () => {
+        var model: any = {};
+
+        this.modelKeys.forEach(key => {
+            model[key] = this[key]();
+        });
+
+        return model;
+    }
+
+    isNew = ko.computed(() => false);
+    isDirty = ko.computed(() => false);
+    isDeleted = ko.computed(() => false);
+
+    modelKeys = [];
+}
