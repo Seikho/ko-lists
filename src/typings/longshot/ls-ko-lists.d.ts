@@ -3,7 +3,7 @@
 
 declare module "ls-ko-lists" {
     class List<T extends ModelViewModel> implements ListViewModel {
-        new(options: ListOptions);
+        constructor(options: ListOptions);
         options: ListOptions;
         models: KnockoutObservableArray<ModelViewModel>
 
@@ -29,7 +29,7 @@ declare module "ls-ko-lists" {
     }
     
     class Model implements ModelViewModel {
-        new(model: any);
+        constructor(model?: any);
         
         originalModel: any;
         loadModel(model: any): void;
@@ -43,6 +43,7 @@ declare module "ls-ko-lists" {
     }
 
     interface ModelViewModel {
+        
         loadModel(model: any): void;
         saveToModel(): any;
         
