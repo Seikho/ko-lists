@@ -1,6 +1,6 @@
 {
   "name": "ls-ko-lists",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Re-usable knockout lists and model",
   "main": "index.js",
   "scripts": {
