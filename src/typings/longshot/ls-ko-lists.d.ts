@@ -29,8 +29,8 @@ declare module "ls-ko-lists" {
         loadModel(model: any): void;
         saveToModel(): any;
         
-        isNew: KnockoutComputed<boolean>;
-        isDirty: KnockoutComputed<boolean>;
+        isCreated: KnockoutComputed<boolean>;
+        isUpdated: KnockoutComputed<boolean>;
         isDeleted: KnockoutComputed<boolean>;
     }
 

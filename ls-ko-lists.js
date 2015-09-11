@@ -12,8 +12,8 @@ var List = (function () {
         };
         this.saveToServer = function () {
             var allModels = _this.models();
-            var created = allModels.filter(function (m) { return m.isNew(); });
-            var updated = allModels.filter(function (m) { return m.isDirty(); });
+            var created = allModels.filter(function (m) { return m.isCreated(); });
+            var updated = allModels.filter(function (m) { return m.isUpdated(); });
             var deleted = allModels.filter(function (m) { return m.isDeleted(); });
             return $.post(_this.options.url, { created: created, updated: updated, deleted: deleted });
         };

@@ -18,8 +18,8 @@ export class List<T extends Types.Model> implements Types.ListViewModel {
 
     saveToServer = () => {
         var allModels = this.models();
-        var created = allModels.filter(m => m.isNew());
-        var updated = allModels.filter(m => m.isDirty());
+        var created = allModels.filter(m => m.isCreated());
+        var updated = allModels.filter(m => m.isUpdated());
         var deleted = allModels.filter(m => m.isDeleted());
         
         return $.post(this.options.url, { created, updated, deleted })
