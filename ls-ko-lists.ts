@@ -3,7 +3,7 @@ import $ = require("jquery");
 import Types = require("ls-ko-lists");
 import ListOptions = Types.ListOptions;
 
-export class List<T extends Types.ModelViewModel> implements Types.ListViewModel {
+export class List<T extends Types.Model> implements Types.ListViewModel {
     constructor(public options: Types.ListOptions) {
         this.options = options;
     }
@@ -17,7 +17,12 @@ export class List<T extends Types.ModelViewModel> implements Types.ListViewModel
     }
 
     saveToServer = () => {
-
+        var allModels = this.models();
+        var created = allModels.filter(m => m.isNew());
+        var updated = allModels.filter(m => m.isDirty());
+        var deleted = allModels.filter(m => m.isDeleted());
+        
+        return $.post(this.options.url, { created, updated, deleted })
     }
 
     loadModels = (models: any[]) => {

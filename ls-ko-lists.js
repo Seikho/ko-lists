@@ -11,6 +11,11 @@ var List = (function () {
                 .then(_this.loadModels);
         };
         this.saveToServer = function () {
+            var allModels = _this.models();
+            var created = allModels.filter(function (m) { return m.isNew(); });
+            var updated = allModels.filter(function (m) { return m.isDirty(); });
+            var deleted = allModels.filter(function (m) { return m.isDeleted(); });
+            return $.post(_this.options.url, { created: created, updated: updated, deleted: deleted });
         };
         this.loadModels = function (models) {
             var newModels = models.map(function (model) { return _this.options.createModel(model); });

@@ -11,7 +11,7 @@ declare module "ls-ko-lists" {
         saveToServer(): any;
 
         loadModels(models: any[]): void;
-        saveToModels(): any[];
+        saveToModels(): any;
     }
     
     interface ListViewModel {
@@ -19,7 +19,7 @@ declare module "ls-ko-lists" {
         saveToServer(): any;
 
         loadModels(models: any[]): void;
-        saveToModels(): any[];
+        saveToModels(): any;
     }
     
     class Model implements ModelViewModel {
