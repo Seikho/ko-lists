@@ -58,8 +58,9 @@ export class Model implements Types.ModelViewModel {
      * Fallback when a custom loadModel function is not provided
      */
     loadModel = (model: any) => {
-        Object.keys(model)
-            .forEach(key => {
+        this.modelKeys = Object.keys(model);
+        
+        this.modelKeys.forEach(key => {            
                 this.modelKeys.push(key);
                 this[key] = ko.observable(model[key]);
             });
@@ -80,6 +81,7 @@ export class Model implements Types.ModelViewModel {
 
     isCreated = ko.computed(() => {
         if (this.originalModel == null) return true;
+        if (this.modelKeys == null) return true;
         if (this.modelKeys.length === 0) return true;
         if (Object.keys(this.originalModel).length === 0) return true;
         

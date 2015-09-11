@@ -45,8 +45,8 @@ var Model = (function () {
          * Fallback when a custom loadModel function is not provided
          */
         this.loadModel = function (model) {
-            Object.keys(model)
-                .forEach(function (key) {
+            _this.modelKeys = Object.keys(model);
+            _this.modelKeys.forEach(function (key) {
                 _this.modelKeys.push(key);
                 _this[key] = ko.observable(model[key]);
             });
@@ -63,6 +63,8 @@ var Model = (function () {
         };
         this.isCreated = ko.computed(function () {
             if (_this.originalModel == null)
+                return true;
+            if (_this.modelKeys == null)
                 return true;
             if (_this.modelKeys.length === 0)
                 return true;
