@@ -24,6 +24,15 @@ var List = (function () {
         this.saveToModels = function () {
             return _this.models().map(function (model) { return model.saveToModel(); });
         };
+        this.deleteModel = function (model) {
+            if (model.isCreated())
+                _this.models.remove(model);
+            else
+                model.deletedFlag(true);
+        };
+        this.unDeleteModel = function (model) {
+            model.deletedFlag(false);
+        };
         this.options = options;
     }
     return List;
@@ -52,13 +61,39 @@ var Model = (function () {
             });
             return model;
         };
-        this.isNew = ko.computed(function () { return false; });
-        this.isDirty = ko.computed(function () { return false; });
-        this.isDeleted = ko.computed(function () { return false; });
+        this.isCreated = ko.computed(function () {
+            if (_this.originalModel == null)
+                return true;
+            if (_this.modelKeys.length === 0)
+                return true;
+            if (Object.keys(_this.originalModel).length === 0)
+                return true;
+            var hasAnyValues = Object.keys(_this.originalModel)
+                .every(function (key) { return _this.originalModel[key] != null; });
+            if (!hasAnyValues)
+                return true;
+            return false;
+        });
+        /**
+         * Return true if the model is not new and has deviated from the original model
+         */
+        this.isUpdated = ko.computed(function () {
+            if (!_this.isCreated())
+                return false;
+            var areAllOriginal = _this.modelKeys.every(function (key) {
+                var original = _this.originalModel[key];
+                var current = _this[key]();
+                return original === current;
+            });
+            return areAllOriginal;
+        });
+        this.isDeleted = ko.computed(function () { return _this.deletedFlag(); });
+        this.deletedFlag = ko.observable(false);
         this.modelKeys = [];
+        if (!model)
+            return;
         this.originalModel = model;
-        if (model)
-            this.loadModel(model);
+        this.loadModel(model);
     }
     return Model;
 })();

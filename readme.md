@@ -1,6 +1,4 @@
 # Knockout List Components
 
-### TODO
-- Implement isCreated
-- Implement isUpdated
-- Implement isDeleted
+### API
+See `ls-ko-lists.d.ts`

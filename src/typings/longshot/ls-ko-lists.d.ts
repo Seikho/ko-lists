@@ -12,6 +12,9 @@ declare module "ls-ko-lists" {
 
         loadModels(models: any[]): void;
         saveToModels(): any;
+        
+        deleteModel(model: ModelViewModel);
+        unDeleteModel(model: ModelViewModel);
     }
     
     interface ListViewModel {
@@ -20,6 +23,9 @@ declare module "ls-ko-lists" {
 
         loadModels(models: any[]): void;
         saveToModels(): any;
+        
+        deleteModel(model: ModelViewModel);
+        unDeleteModel(model: ModelViewModel);
     }
     
     class Model implements ModelViewModel {
@@ -32,11 +38,19 @@ declare module "ls-ko-lists" {
         isCreated: KnockoutComputed<boolean>;
         isUpdated: KnockoutComputed<boolean>;
         isDeleted: KnockoutComputed<boolean>;
+        
+        deletedFlag: KnockoutObservable<boolean>;
     }
 
     interface ModelViewModel {
         loadModel(model: any): void;
         saveToModel(): any;
+        
+        isCreated: KnockoutComputed<boolean>;
+        isUpdated: KnockoutComputed<boolean>;
+        isDeleted: KnockoutComputed<boolean>;
+        
+        deletedFlag: KnockoutObservable<boolean>;
     }
 
     interface ListOptions {

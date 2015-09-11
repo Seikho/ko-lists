@@ -33,12 +33,23 @@ export class List<T extends Types.Model> implements Types.ListViewModel {
     saveToModels = () => {
         return this.models().map(model => model.saveToModel());
     }
+    
+    deleteModel = (model: T) => {
+        if (model.isCreated()) this.models.remove(model);
+        else model.deletedFlag(true);
+    }
+    
+    unDeleteModel = (model: T) => {
+        model.deletedFlag(false);
+    }
 }
 
 export class Model implements Types.ModelViewModel {
     constructor(model?: any) {
+        if (!model) return;
+        
         this.originalModel = model;
-        if (model) this.loadModel(model);
+        this.loadModel(model);
     }
 
     originalModel: any;
@@ -67,9 +78,35 @@ export class Model implements Types.ModelViewModel {
         return model;
     }
 
-    isNew = ko.computed(() => false);
-    isDirty = ko.computed(() => false);
-    isDeleted = ko.computed(() => false);
+    isCreated = ko.computed(() => {
+        if (this.originalModel == null) return true;
+        if (this.modelKeys.length === 0) return true;
+        if (Object.keys(this.originalModel).length === 0) return true;
+        
+        var hasAnyValues = Object.keys(this.originalModel)
+            .every(key => this.originalModel[key] != null);        
+        if (!hasAnyValues) return true;
+        
+        return false;
+    });
+    
+    /**
+     * Return true if the model is not new and has deviated from the original model
+     */
+    isUpdated = ko.computed(() => {
+        if (!this.isCreated()) return false;
 
+        var areAllOriginal = this.modelKeys.every(key => {
+           var original = this.originalModel[key];
+           var current = this[key]();
+           return original === current; 
+        });
+        
+        return areAllOriginal;
+    });
+        
+    isDeleted = ko.computed(() => this.deletedFlag());
+    deletedFlag = ko.observable(false);
+    
     modelKeys = [];
 }
