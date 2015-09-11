@@ -18,7 +18,11 @@ var List = (function () {
             return $.post(_this.options.url, { created: created, updated: updated, deleted: deleted });
         };
         this.loadModels = function (models) {
-            var newModels = models.map(function (model) { return _this.options.createModel(model); });
+            var newModels = models.map(function (model) {
+                var newModel = _this.options.createModel();
+                newModel.loadModel(model);
+                return newModel;
+            });
             _this.models(newModels);
         };
         this.saveToModels = function () {
@@ -41,10 +45,13 @@ exports.List = List;
 var Model = (function () {
     function Model(model) {
         var _this = this;
+        this.modelKeys = [];
+        this.deletedFlag = ko.observable(false);
         /**
          * Fallback when a custom loadModel function is not provided
          */
         this.loadModel = function (model) {
+            _this.originalModel = model;
             _this.modelKeys = Object.keys(model);
             _this.modelKeys.forEach(function (key) {
                 _this.modelKeys.push(key);
@@ -63,8 +70,6 @@ var Model = (function () {
         };
         this.isCreated = ko.computed(function () {
             if (_this.originalModel == null)
-                return true;
-            if (_this.modelKeys == null)
                 return true;
             if (_this.modelKeys.length === 0)
                 return true;
@@ -90,11 +95,8 @@ var Model = (function () {
             return areAllOriginal;
         });
         this.isDeleted = ko.computed(function () { return _this.deletedFlag(); });
-        this.deletedFlag = ko.observable(false);
-        this.modelKeys = [];
         if (!model)
             return;
-        this.originalModel = model;
         this.loadModel(model);
     }
     return Model;

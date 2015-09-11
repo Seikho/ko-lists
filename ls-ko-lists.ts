@@ -26,7 +26,11 @@ export class List<T extends Types.Model> implements Types.ListViewModel {
     }
 
     loadModels = (models: any[]) => {
-        var newModels = models.map(model => <T>this.options.createModel(model));
+        var newModels = models.map(model => {
+            var newModel = <T>this.options.createModel();
+            newModel.loadModel(model);
+            return newModel;
+        });
         this.models(newModels);
     }
 
@@ -47,17 +51,18 @@ export class List<T extends Types.Model> implements Types.ListViewModel {
 export class Model implements Types.ModelViewModel {
     constructor(model?: any) {
         if (!model) return;
-        
-        this.originalModel = model;
         this.loadModel(model);
     }
 
     originalModel: any;
+    modelKeys = [];
+    deletedFlag = ko.observable(false);
     
     /**
      * Fallback when a custom loadModel function is not provided
      */
     loadModel = (model: any) => {
+        this.originalModel = model;
         this.modelKeys = Object.keys(model);
         
         this.modelKeys.forEach(key => {            
@@ -81,7 +86,6 @@ export class Model implements Types.ModelViewModel {
 
     isCreated = ko.computed(() => {
         if (this.originalModel == null) return true;
-        if (this.modelKeys == null) return true;
         if (this.modelKeys.length === 0) return true;
         if (Object.keys(this.originalModel).length === 0) return true;
         
@@ -107,8 +111,5 @@ export class Model implements Types.ModelViewModel {
         return areAllOriginal;
     });
         
-    isDeleted = ko.computed(() => this.deletedFlag());
-    deletedFlag = ko.observable(false);
-    
-    modelKeys = [];
+    isDeleted = ko.computed(() => this.deletedFlag());    
 }

@@ -29,7 +29,7 @@ declare module "ls-ko-lists" {
     }
     
     class Model implements ModelViewModel {
-        constructor(model?: any);
+        constructor();
         
         originalModel: any;
         loadModel(model: any): void;
