@@ -54,7 +54,6 @@ var Model = (function () {
             _this.originalModel = model;
             _this.modelKeys = Object.keys(model);
             _this.modelKeys.forEach(function (key) {
-                _this.modelKeys.push(key);
                 _this[key] = ko.observable(model[key]);
             });
         };

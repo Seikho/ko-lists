@@ -65,8 +65,7 @@ export class Model implements Types.ModelViewModel {
         this.originalModel = model;
         this.modelKeys = Object.keys(model);
         
-        this.modelKeys.forEach(key => {            
-                this.modelKeys.push(key);
+        this.modelKeys.forEach(key => {
                 this[key] = ko.observable(model[key]);
             });
     }
