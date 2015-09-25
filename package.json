@@ -1,6 +1,6 @@
 {
-  "name": "ls-ko-lists",
-  "version": "0.2.3",
+  "name": "ko-lists",
+  "version": "0.4.0",
   "description": "Re-usable knockout lists and model",
   "main": "index.js",
   "scripts": {
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/longshot-io/ls-ko-lists/issues"
   },
-  "homepage": "https://github.com/longshot-io/ls-ko-lists#readme"
+  "homepage": "https://github.com/longshot-io/ls-ko-lists#readme",
+  "devDependencies": {
+    "typescript": "^1.6.2"
+  }
 }
