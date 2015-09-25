@@ -16,7 +16,7 @@ or load it with [RequireJS/Cajon](https://github.com/requirejs/cajon).
 require.config({
     // rest of your config ...
     paths: {
-        'ko-lists': ['//rawgit.com/longshot-io/ko-lists/v0.4.0/ko-lists.js']
+        'ko-lists': ['//rawgit.com/longshot-io/ko-lists/v0.4.1/ko-lists.js']
     }
 });
 ```
