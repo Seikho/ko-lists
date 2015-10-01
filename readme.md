@@ -7,7 +7,7 @@ npm install ko-lists --save
 ```
 or add `ko-lists.js` to your browser via a script tag.  
 ```html
-<script src="scripts/ko-lists.ks"></script>
+<script src="scripts/ko-lists.js"></script>
 <!-- Or use the github CDN -->
 <script src="https://rawgit.com/longshot-io/ko-lists/v0.4.2/ko-lists.js"></script>
 ``` 
