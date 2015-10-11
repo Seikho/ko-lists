@@ -1,6 +1,6 @@
 {
   "name": "ko-lists",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Re-usable knockout lists and model",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/longshot-io/ko-lists.git"
+    "url": "https://github.com/seikho/ko-lists.git"
   },
   "keywords": [
     "knockout",
