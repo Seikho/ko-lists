@@ -1,7 +1,7 @@
 {
   "name": "ko-lists",
-  "version": "0.4.3",
-  "description": "Re-usable knockout lists and model",
+  "version": "0.4.4",
+  "description": "Re-usable knockout lists and model components",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
